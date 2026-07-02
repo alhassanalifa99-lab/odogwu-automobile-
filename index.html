@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Odogwu Automobile — The Big Man's Fleet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0a0708;
+    --royal:#3b1145;
+    --royal-deep:#1c0a24;
+    --burgundy:#6b1622;
+    --gold:#d4af37;
+    --gold-light:#f2d675;
+    --gold-dim:#8a742a;
+    --ivory:#f3e9d2;
+    --ivory-dim:#c9bfa8;
+    --line: rgba(212,175,55,0.25);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--void);
+    color:var(--ivory);
+    font-family:'Manrope',sans-serif;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.crest-word{
+    font-family:'Cinzel',serif;
+    letter-spacing:0.04em;
+  }
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+
+  /* ---------- utility ---------- */
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  .eyebrow{
+    font-family:'Cinzel',serif;
+    font-size:0.72rem;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:28px;height:1px;
+    background:var(--gold);
+    display:inline-block;
+  }
+  .gold-rule{
+    width:100%;
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold-light) 50%, var(--gold) 80%, transparent);
+    opacity:0.6;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Cinzel',serif;
+    font-size:0.78rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    padding:16px 30px;
+    border:1px solid var(--gold);
+    color:var(--gold-light);
+    background:transparent;
+    cursor:pointer;
+    transition:all .35s ease;
+    position:relative;
+  }
+  .btn:hover{
+    background:var(--gold);
+    color:var(--void);
+    box-shadow:0 0 24px rgba(212,175,55,0.4);
+  }
+  .btn.solid{
+    background:var(--gold);
+    color:var(--void);
+  }
+  .btn.solid:hover{
+    background:var(--gold-light);
+    box-shadow:0 0 30px rgba(212,175,55,0.55);
+  }
+
+  /* ---------- crest signature ---------- */
+  .crest{
+    width:64px;height:64px;
+    flex-shrink:0;
+  }
+  .logo-img{
+    width:100%;height:100%;
+    object-fit:cover;
+    border-radius:50%;
+    border:1px solid var(--gold);
+    background:var(--royal-deep);
+    box-shadow:0 0 14px rgba(212,175,55,0.25);
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:100;
+    background:linear-gradient(180deg, rgba(10,7,8,0.95), rgba(10,7,8,0.75) 70%, transparent);
+    padding:22px 0;
+    transition:padding .3s ease, background .3s ease;
+  }
+  header.scrolled{
+    padding:14px 0;
+    background:rgba(10,7,8,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .brand .crest{width:38px;height:38px;}
+  .brand-text{
+    font-size:1.05rem;
+    font-weight:700;
+    letter-spacing:0.12em;
+    color:var(--ivory);
+  }
+  .brand-text span{color:var(--gold);}
+  .nav-links{
+    display:flex;
+    gap:38px;
+    font-size:0.82rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    font-weight:600;
+  }
+  .nav-links a{
+    color:var(--ivory-dim);
+    position:relative;
+    padding-bottom:4px;
+    transition:color .25s ease;
+  }
+  .nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0;bottom:0;
+    width:0;height:1px;
+    background:var(--gold);
+    transition:width .3s ease;
+  }
+  .nav-links a:hover{color:var(--gold-light);}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{display:none;}
+  @media(min-width:900px){.nav-cta{display:inline-flex;}}
+  .burger{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:6px;
+  }
+  .burger span{width:26px;height:2px;background:var(--gold);display:block;}
+  @media(min-width:900px){.burger{display:none;}}
+  @media(max-width:899px){.nav-links{display:none;}}
+
+  .mobile-menu{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:var(--royal-deep);
+    z-index:99;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:34px;
+  }
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{
+    font-family:'Cinzel',serif;
+    font-size:1.3rem;
+    letter-spacing:0.1em;
+    color:var(--ivory);
+    text-transform:uppercase;
+  }
+  .mobile-menu .close-x{
+    position:absolute;
+    top:26px;right:32px;
+    font-size:1.8rem;
+    color:var(--gold);
+    background:none;border:none;cursor:pointer;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    position:relative;
+    padding-top:120px;
+    padding-bottom:80px;
+    background:
+      radial-gradient(ellipse 900px 600px at 80% 10%, rgba(107,22,34,0.35), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 10% 90%, rgba(59,17,69,0.55), transparent 60%),
+      linear-gradient(180deg, var(--void) 0%, var(--royal-deep) 60%, var(--void) 100%);
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:64px 64px;
+    opacity:0.12;
+    mask-image:radial-gradient(ellipse 800px 500px at 60% 40%, black, transparent);
+  }
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:50px;
+    align-items:center;
+  }
+  @media(min-width:960px){
+    .hero-inner{grid-template-columns:1.1fr 0.9fr;}
+  }
+  .hero-copy .eyebrow{margin-bottom:26px;}
+  .hero-copy h1{
+    font-size:clamp(2.6rem, 6.5vw, 4.7rem);
+    line-height:1.04;
+    color:var(--ivory);
+    text-transform:uppercase;
+    font-weight:900;
+  }
+  .hero-copy h1 em{
+    font-style:normal;
+    color:transparent;
+    -webkit-text-stroke:1.5px var(--gold);
+    display:block;
+  }
+  .hero-copy p{
+    margin-top:26px;
+    max-width:480px;
+    color:var(--ivory-dim);
+    font-size:1.05rem;
+    line-height:1.7;
+  }
+  .hero-cta{
+    margin-top:40px;
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .hero-stats{
+    margin-top:56px;
+    display:flex;
+    gap:44px;
+    flex-wrap:wrap;
+  }
+  .hero-stats div{border-left:1px solid var(--line);padding-left:18px;}
+  .hero-stats strong{
+    display:block;
+    font-family:'Cinzel',serif;
+    font-size:1.7rem;
+    color:var(--gold-light);
+  }
+  .hero-stats span{
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--ivory-dim);
+  }
+
+  /* hero emblem panel */
+  .hero-emblem{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+  }
+  .emblem-ring{
+    width:min(420px, 90vw);
+    aspect-ratio:1/1;
+    border-radius:50%;
+    border:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    animation:spin 60s linear infinite;
+  }
+  .emblem-ring::before{
+    content:"ODOGWU • THE BIG MAN'S FLEET • ODOGWU • THE BIG MAN'S FLEET •";
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .emblem-core{
+    width:64%;
+    aspect-ratio:1/1;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--royal), var(--royal-deep) 70%);
+    border:1px solid var(--gold);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    animation:spin-rev 60s linear infinite;
+    box-shadow:0 0 60px rgba(212,175,55,0.15), inset 0 0 40px rgba(0,0,0,0.5);
+  }
+  @keyframes spin-rev{to{transform:rotate(-360deg);}}
+  .emblem-core svg{width:52%;height:52%;}
+  @media(prefers-reduced-motion: reduce){
+    .emblem-ring, .emblem-core{animation:none;}
+  }
+
+  /* ---------- section shell ---------- */
+  section{
+    padding:120px 0;
+    position:relative;
+  }
+  .section-head{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    margin-bottom:64px;
+    max-width:640px;
+  }
+  .section-head h2{
+    font-size:clamp(2rem, 4vw, 2.9rem);
+    color:var(--ivory);
+    text-transform:uppercase;
+    font-weight:700;
+    line-height:1.15;
+  }
+  .section-head p{
+    color:var(--ivory-dim);
+    font-size:1.02rem;
+    line-height:1.7;
+  }
+
+  /* ---------- about ---------- */
+  .about{background:var(--void);}
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:60px;
+  }
+  @media(min-width:900px){
+    .about-grid{grid-template-columns:0.85fr 1.15fr;align-items:center;}
+  }
+  .about-visual{
+    position:relative;
+    aspect-ratio:4/5;
+    border:1px solid var(--line);
+    background:
+      linear-gradient(160deg, var(--royal) 0%, var(--royal-deep) 55%, var(--void) 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .about-visual::after{
+    content:"";
+    position:absolute;
+    inset:18px;
+    border:1px solid var(--gold-dim);
+  }
+  .about-visual svg{width:56%;}
+  .about-pillars{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--line);
+    margin-top:44px;
+  }
+  .pillar{
+    background:var(--void);
+    padding:26px 8px 26px 0;
+  }
+  .pillar strong{
+    display:block;
+    font-family:'Cinzel',serif;
+    color:var(--gold-light);
+    font-size:1rem;
+    margin-bottom:8px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+  }
+  .pillar p{color:var(--ivory-dim);font-size:0.92rem;line-height:1.6;}
+
+  /* ---------- fleet ---------- */
+  .fleet{
+    background:linear-gradient(180deg, var(--void), var(--royal-deep) 50%, var(--void));
+  }
+  .fleet-head-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    gap:24px;
+  }
+  .filters{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:56px;
+  }
+  .filter-btn{
+    font-family:'Cinzel',serif;
+    font-size:0.7rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    padding:10px 18px;
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--ivory-dim);
+    cursor:pointer;
+    transition:all .25s ease;
+  }
+  .filter-btn:hover{border-color:var(--gold);color:var(--gold-light);}
+  .filter-btn.active{
+    background:var(--gold);
+    color:var(--void);
+    border-color:var(--gold);
+  }
+  .fleet-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:2px;
+    background:var(--line);
+  }
+  @media(min-width:700px){.fleet-grid{grid-template-columns:1fr 1fr;}}
+  @media(min-width:1080px){.fleet-grid{grid-template-columns:1fr 1fr 1fr;}}
+  .car-card{
+    background:var(--void);
+    padding:38px 30px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    transition:background .3s ease;
+  }
+  .car-card:hover{background:#120a15;}
+  .car-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+  }
+  .car-tag{
+    font-size:0.65rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold);
+    border:1px solid var(--gold-dim);
+    padding:4px 10px;
+  }
+  .car-icon{
+    width:100%;height:170px;
+    position:relative;
+    overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .car-icon img{
+    width:100%;height:100%;
+    object-fit:cover;
+    filter:saturate(0.82) contrast(1.08) brightness(0.92);
+    transition:transform .6s ease, filter .6s ease;
+  }
+  .car-card:hover .car-icon img{
+    transform:scale(1.06);
+    filter:saturate(0.95) contrast(1.1) brightness(1);
+  }
+  .car-icon::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(10,7,8,0) 40%, rgba(10,7,8,0.55) 100%),
+               linear-gradient(0deg, rgba(59,17,69,0.25), transparent 60%);
+    pointer-events:none;
+  }
+  .car-card h3{
+    font-size:1.3rem;
+    color:var(--ivory);
+    text-transform:uppercase;
+  }
+  .car-card .desc{color:var(--ivory-dim);font-size:0.9rem;line-height:1.6;}
+  .car-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:auto;
+    padding-top:14px;
+    border-top:1px solid var(--line);
+  }
+  .car-price{font-family:'Cinzel',serif;color:var(--gold-light);font-weight:700;}
+  .car-link{font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ivory-dim);}
+  .car-link:hover{color:var(--gold-light);}
+
+  /* ---------- brands band ---------- */
+  .brands{
+    background:var(--void);
+    padding:90px 0;
+    text-align:center;
+  }
+  .brands-frame{
+    position:relative;
+    max-width:900px;
+    margin:0 auto;
+    padding:36px;
+    border:1px solid var(--gold-dim);
+  }
+  .brands-frame::before,
+  .brands-frame::after{
+    content:"";
+    position:absolute;
+    width:22px;height:22px;
+    border:1px solid var(--gold);
+  }
+  .brands-frame::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+  .brands-frame::after{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+  .brands-frame img{
+    width:100%;
+    filter:grayscale(1) sepia(0.55) hue-rotate(-8deg) saturate(2.4) brightness(1.05) contrast(1.05);
+    mix-blend-mode:screen;
+    opacity:0.92;
+  }
+  .brands p.tag{
+    margin-top:28px;
+    color:var(--ivory-dim);
+    font-size:0.85rem;
+    letter-spacing:0.06em;
+    max-width:460px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  /* ---------- services ---------- */
+  .services{background:var(--void);}
+  .service-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  @media(min-width:800px){.service-grid{grid-template-columns:repeat(4,1fr);}}
+  .service{
+    background:var(--void);
+    padding:44px 28px;
+    text-align:center;
+  }
+  .service .num{
+    font-family:'Cinzel',serif;
+    color:var(--gold-dim);
+    font-size:0.8rem;
+    letter-spacing:0.2em;
+  }
+  .service svg{width:44px;height:44px;margin:20px auto;color:var(--gold);}
+  .service h3{font-size:1.05rem;color:var(--ivory);text-transform:uppercase;margin-bottom:10px;}
+  .service p{color:var(--ivory-dim);font-size:0.88rem;line-height:1.6;}
+
+  /* ---------- contact ---------- */
+  .contact{background:var(--void);}
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:60px;
+  }
+  @media(min-width:900px){.contact-grid{grid-template-columns:0.9fr 1.1fr;}}
+  .contact-info h2{
+    font-size:clamp(2rem,4vw,2.7rem);
+    text-transform:uppercase;
+    color:var(--ivory);
+    margin-bottom:22px;
+  }
+  .contact-info p{color:var(--ivory-dim);line-height:1.7;max-width:420px;margin-bottom:36px;}
+  .contact-lines{display:flex;flex-direction:column;gap:18px;}
+  .contact-lines div{border-left:1px solid var(--gold-dim);padding-left:16px;}
+  .contact-lines strong{display:block;font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase;margin-bottom:4px;}
+  .contact-lines span{color:var(--ivory-dim);font-size:0.95rem;}
+
+  form.royal-form{
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+    border:1px solid var(--line);
+    padding:40px;
+    background:linear-gradient(160deg, rgba(59,17,69,0.25), transparent);
+  }
+  .form-row{display:grid;grid-template-columns:1fr;gap:22px;}
+  @media(min-width:560px){.form-row.two{grid-template-columns:1fr 1fr;}}
+  label{
+    font-size:0.7rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--gold-light);
+    display:block;
+    margin-bottom:8px;
+  }
+  input, select, textarea{
+    width:100%;
+    background:transparent;
+    border:none;
+    border-bottom:1px solid var(--line);
+    color:var(--ivory);
+    font-family:'Manrope',sans-serif;
+    font-size:0.95rem;
+    padding:10px 2px;
+    outline:none;
+    transition:border-color .25s ease;
+  }
+  input:focus, select:focus, textarea:focus{border-bottom-color:var(--gold);}
+  select option{background:var(--royal-deep);color:var(--ivory);}
+  textarea{resize:vertical;min-height:90px;}
+  .form-msg{
+    font-size:0.85rem;
+    color:var(--gold-light);
+    display:none;
+  }
+  .form-msg.show{display:block;}
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--royal-deep);
+    border-top:1px solid var(--line);
+    padding:64px 0 30px;
+  }
+  .footer-top{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:40px;
+    margin-bottom:48px;
+  }
+  .footer-brand{display:flex;align-items:center;gap:14px;max-width:320px;}
+  .footer-brand .crest{width:44px;height:44px;}
+  .footer-brand p{color:var(--ivory-dim);font-size:0.85rem;margin-top:6px;line-height:1.6;}
+  .footer-cols{display:flex;gap:60px;flex-wrap:wrap;}
+  .footer-col h4{
+    font-family:'Cinzel',serif;
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:16px;
+  }
+  .footer-col a, .footer-col span{
+    display:block;
+    color:var(--ivory-dim);
+    font-size:0.88rem;
+    margin-bottom:10px;
+  }
+  .footer-col a:hover{color:var(--gold-light);}
+  .footer-bottom{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+    font-size:0.75rem;
+    color:var(--ivory-dim);
+    letter-spacing:0.04em;
+  }
+
+  ::selection{background:var(--gold);color:var(--void);}
+  :focus-visible{outline:2px solid var(--gold-light);outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="wrap">
+    <nav>
+      <div class="brand">
+        <span class="crest"><img src="images/auto-logo.jpeg" alt="Odogwu Automobile logo" class="logo-img"></span>
+        <span class="brand-text">ODOGWU <span>AUTOMOBILE</span></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#fleet">Fleet</a></li>
+        <li><a href="#about">Legacy</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Visit Us</a></li>
+      </ul>
+      <a href="#contact" class="btn nav-cta">Book a Viewing</a>
+      <button class="burger" id="burgerBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-x" id="closeMenu" aria-label="Close menu">×</button>
+  <a href="#fleet">Fleet</a>
+  <a href="#about">Legacy</a>
+  <a href="#services">Services</a>
+  <a href="#contact">Visit Us</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow">Kumasi · Ashanti Region · Est. Reputation</p>
+      <h1>Drive Like<br><em>An Odogwu</em></h1>
+      <p>Odogwu Automobile deals in machines built for men and women who move differently. Every vehicle on our floor is inspected, verified, and handed over with the respect befitting the big man — and the big woman — behind the wheel.</p>
+      <div class="hero-cta">
+        <a href="#fleet" class="btn solid">View the Fleet</a>
+        <a href="#contact" class="btn">Speak to an Advisor</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong>250+</strong><span>Vehicles Sold</span></div>
+        <div><strong>12</strong><span>Years in Trade</span></div>
+        <div><strong>100%</strong><span>Verified Papers</span></div>
+      </div>
+    </div>
+    <div class="hero-emblem">
+      <div class="emblem-ring">
+        <div class="emblem-core">
+          <svg viewBox="0 0 100 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 42 Q10 26 26 24 L34 14 H66 L76 24 Q92 26 92 42 V46 H84 Q84 38 76 38 Q68 38 68 46 H32 Q32 38 24 38 Q16 38 16 46 H8 Z" stroke="#d4af37" stroke-width="1.6"/>
+            <circle cx="24" cy="46" r="8" stroke="#d4af37" stroke-width="1.6"/>
+            <circle cx="76" cy="46" r="8" stroke="#d4af37" stroke-width="1.6"/>
+            <path d="M36 24 L40 15 H60 L64 24" stroke="#d4af37" stroke-width="1.4"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="gold-rule"></div></div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div class="about-visual">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="46" stroke="#d4af37" stroke-width="0.8"/>
+        <path d="M50 8 L58 28 L80 28 L62 40 L70 62 L50 48 L30 62 L38 40 L20 28 L42 28 Z" stroke="#d4af37" stroke-width="0.9"/>
+      </svg>
+    </div>
+    <div>
+      <p class="eyebrow">The Legacy</p>
+      <h2 style="font-size:clamp(2rem,4vw,2.8rem);text-transform:uppercase;margin-top:18px;color:var(--ivory);line-height:1.15;">Built On Trust,<br>Sold With Honour</h2>
+      <p style="color:var(--ivory-dim);margin-top:22px;line-height:1.75;max-width:480px;">Odogwu Automobile started as one man's word being his bond in a Kumasi car park. Today, we're a name buyers across Ghana call before they call anyone else — because an Odogwu never sells a lie. Every unit we release has been driven, checked, and cleared by our own people before it ever reaches yours.</p>
+      <div class="about-pillars">
+        <div class="pillar">
+          <strong>No Hidden Faults</strong>
+          <p>Full mechanical and document check before any car is listed for sale.</p>
+        </div>
+        <div class="pillar">
+          <strong>Straight Papers</strong>
+          <p>Registration and customs documentation verified and handed over clean.</p>
+        </div>
+        <div class="pillar">
+          <strong>Fair Trade-In</strong>
+          <p>Bring your current ride — we value it honestly against your next purchase.</p>
+        </div>
+        <div class="pillar">
+          <strong>After You Buy</strong>
+          <p>Service referrals and support for a full year after you drive off.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLEET -->
+<section class="fleet" id="fleet">
+  <div class="wrap">
+    <div class="section-head fleet-head-row" style="width:100%;">
+      <div>
+        <p class="eyebrow">The Fleet</p>
+        <h2 style="margin-top:14px;">Machines Worth The Name</h2>
+        <p>A rotating floor of saloons, SUVs, and executive rides — each one chosen for a buyer who won't settle for average.</p>
+      </div>
+    </div>
+    <div class="filters" id="filterBar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="suv">SUV</button>
+      <button class="filter-btn" data-filter="saloon">Saloon</button>
+      <button class="filter-btn" data-filter="executive">Executive</button>
+      <button class="filter-btn" data-filter="sports">Sports</button>
+    </div>
+    <div class="fleet-grid" id="fleetGrid">
+
+      <div class="car-card" data-cat="saloon">
+        <div class="car-top"><span class="car-tag">Saloon</span><span class="car-tag">2020</span></div>
+        <div class="car-icon"><img src="images/2020-Accord Sport-2.OT.jpeg" alt="2020 Honda Accord Sport 2.0T"></div>
+        <h3>Honda Accord Sport 2.0T</h3>
+        <p class="desc">Turbocharged and sharp-handling. The everyday saloon with a competitive streak.</p>
+        <div class="car-meta"><span class="car-price">GH₵ 175,000</span><a href="#contact" class="car-link">Enquire →</a></div>
+      </div>
+
+      <div class="car-card" data-cat="saloon">
+        <div class="car-top"><span class="car-tag">Saloon</span><span class="car-tag">2020</span></div>
+        <div class="car-icon"><img src="images/2020-Honda Accord-Sports.jpeg" alt="2020 Honda Accord Sports"></div>
+        <h3>Honda Accord Sports Line</h3>
+        <p class="desc">Clean lines, low mileage, dealership-serviced. Comfort without shouting about it.</p>
+        <div class="car-meta"><span class="car-price">GH₵ 168,000</span><a href="#contact" class="car-link">Enquire →</a></div>
+      </div>
+
+      <div class="car-card" data-cat="executive">
+        <div class="car-top"><span class="car-tag">Executive</span><span class="car-tag">2020</span></div>
+        <div class="car-icon"><img src="images/2020-Land-Rover Range-Rover.jpeg" alt="2020 Land Rover Range Rover"></div>
+        <h3>Range Rover Autobiography</h3>
+        <p class="desc">Full-size British luxury. Air suspension, leather cabin — the seat of a boardroom on wheels.</p>
+        <div class="car-meta"><span class="car-price">GH₵ 610,000</span><a href="#contact" class="car-link">Enquire →</a></div>
+      </div>
+
+      <div class="car-card" data-cat="suv">
+        <div class="car-top"><span class="car-tag">SUV</span><span class="car-tag">2020</span></div>
+        <div class="car-icon"><img src="images/2020-Range-Rover Velar.jpeg" alt="2020 Range Rover Velar"></div>
+        <h3>Range Rover Velar</h3>
+        <p class="desc">The sleeker Range Rover — coupe-styled SUV built for the city that's watching.</p>
+        <div class="car-meta"><span class="car-price">GH₵ 445,000</span><a href="#contact" class="car-link">Enquire →</a></div>
+      </div>
+
+      <div class="car-card" data-cat="suv">
+        <div class="car-top"><span class="car-tag">SUV</span><span class="car-tag">2021</span></div>
+        <div class="car-icon"><img src="images/2021-Toyota Tacoma-6.jpeg" alt="2021 Toyota Tacoma"></div>
+        <h3>Toyota Tacoma</h3>
+        <p class="desc">Built for the village road and the highway alike. Nothing rattles this frame.</p>
+        <div class="car-meta"><span class="car-price">GH₵ 310,000</span><a href="#contact" class="car-link">Enquire →</a></div>
+      </div>
+
+      <div class="car-card" data-cat="executive">
+        <div class="car-top"><span class="car-tag">Executive</span><span class="car-tag">2022</span></div>
+        <div class="car-icon"><img src="images/2022-Mercedes-Benz-GLE53-AMG-Coupe.jpeg" alt="2022 Mercedes-Benz GLE53 AMG Coupe"></div>
+        <h3>Mercedes-Benz GLE53 AMG Coupe</h3>
+        <p class="desc">AMG-tuned power in a coupe silhouette. The car that announces you before you've said a word.</p>
+        <div class="car-meta"><span class="car-price">GH₵ 690,000</span><a href="#contact" class="car-link">Enquire →</a></div>
+      </div>
+
+      <div class="car-card" data-cat="suv">
+        <div class="car-top"><span class="car-tag">SUV</span><span class="car-tag">2022</span></div>
+        <div class="car-icon"><img src="images/2022-Toyota Highlander-XSE.jpeg" alt="2022 Toyota Highlander XSE"></div>
+        <h3>Toyota Highlander XSE</h3>
+        <p class="desc">Three-row family muscle with sport-tuned handling. Room for everyone, pace for no one to catch.</p>
+        <div class="car-meta"><span class="car-price">GH₵ 375,000</span><a href="#contact" class="car-link">Enquire →</a></div>
+      </div>
+
+      <div class="car-card" data-cat="sports">
+        <div class="car-top"><span class="car-tag">Sports</span><span class="car-tag">2023</span></div>
+        <div class="car-icon"><img src="images/2023-Dodge Challenger-GT.jpeg" alt="2023 Dodge Challenger GT"></div>
+        <h3>Dodge Challenger GT</h3>
+        <p class="desc">American muscle, unapologetic. For the Odogwu who wants the room to notice him arrive.</p>
+        <div class="car-meta"><span class="car-price">GH₵ 385,000</span><a href="#contact" class="car-link">Enquire →</a></div>
+      </div>
+
+      <div class="car-card" data-cat="suv">
+        <div class="car-top"><span class="car-tag">SUV</span><span class="car-tag">2020</span></div>
+        <div class="car-icon"><img src="images/hyundai-tucson.jpeg" alt="Hyundai Tucson"></div>
+        <h3>Hyundai Tucson</h3>
+        <p class="desc">Fuel-efficient, well kept, priced for the buyer who wants SUV presence without SUV bills.</p>
+        <div class="car-meta"><span class="car-price">GH₵ 195,000</span><a href="#contact" class="car-link">Enquire →</a></div>
+      </div>
+
+      <div class="car-card" data-cat="executive">
+        <div class="car-top"><span class="car-tag">Executive</span><span class="car-tag">2025</span></div>
+        <div class="car-icon"><img src="images/Mercedez-Benz-2025-C250.jpeg" alt="2025 Mercedes-Benz C250"></div>
+        <h3>Mercedes-Benz C250</h3>
+        <p class="desc">Brand new stock. Quiet power, sharp cabin tech, built for boardrooms and state functions alike.</p>
+        <div class="car-meta"><span class="car-price">GH₵ 520,000</span><a href="#contact" class="car-link">Enquire →</a></div>
+      </div>
+
+      <div class="car-card" data-cat="saloon">
+        <div class="car-top"><span class="car-tag">Family</span><span class="car-tag">2010</span></div>
+        <div class="car-icon"><img src="images/Toyota-Voxy-2010-Model.jpeg" alt="2010 Toyota Voxy"></div>
+        <h3>Toyota Voxy</h3>
+        <p class="desc">The family hauler that never complains. Reliable, roomy, ready for the school run.</p>
+        <div class="car-meta"><span class="car-price">GH₵ 98,000</span><a href="#contact" class="car-link">Enquire →</a></div>
+      </div>
+
+      <div class="car-card" data-cat="suv">
+        <div class="car-top"><span class="car-tag">SUV</span><span class="car-tag">2021</span></div>
+        <div class="car-icon"><img src="images/Toyota-LandCruiser-prado-VXR.jpeg" alt="Toyota Land Cruiser Prado VXR"></div>
+        <h3>Toyota Land Cruiser Prado VXR</h3>
+        <p class="desc">The name that needs no introduction on any Ghanaian road. Built to outlast everything.</p>
+        <div class="car-meta"><span class="car-price">GH₵ 480,000</span><a href="#contact" class="car-link">Enquire →</a></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section class="brands" id="brands">
+  <div class="wrap">
+    <p class="eyebrow" style="justify-content:center;">Every Marque, One Floor</p>
+    <h2 style="margin-top:18px;text-transform:uppercase;font-size:clamp(1.7rem,3.5vw,2.4rem);">Trusted Across The Trade</h2>
+    <div class="brands-frame" style="margin-top:44px;">
+      <img src="images/cars-logos.jpeg" alt="Trusted automobile brands">
+    </div>
+    <p class="tag">From German engineering to Japanese reliability to American muscle — if it wears a respected badge, Odogwu can source it, verify it, and deliver it to your door.</p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">What We Handle</p>
+      <h2>Beyond The Sale</h2>
+      <p>An Odogwu deal doesn't end at the handshake. We stay in the business of getting you road-ready and road-worthy.</p>
+    </div>
+    <div class="service-grid">
+      <div class="service">
+        <span class="num">01</span>
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M24 6 L38 12 V22 Q38 34 24 42 Q10 34 10 22 V12 Z"/><path d="M17 24 L22 29 L31 18"/></svg>
+        <h3>Verified Sourcing</h3>
+        <p>Every vehicle is sourced and background-checked before it reaches our floor.</p>
+      </div>
+      <div class="service">
+        <span class="num">02</span>
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="8" y="14" width="32" height="22" rx="2"/><path d="M8 22 H40 M16 14 V10 H32 V14"/></svg>
+        <h3>Import & Clearance</h3>
+        <p>Order direct and let us handle shipping, customs, and clearance from port to plate.</p>
+      </div>
+      <div class="service">
+        <span class="num">03</span>
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="24" cy="24" r="16"/><path d="M24 14 V24 L31 29"/></svg>
+        <h3>Flexible Financing</h3>
+        <p>Structured payment plans with partner institutions for qualified buyers.</p>
+      </div>
+      <div class="service">
+        <span class="num">04</span>
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 34 L20 20 H28 L34 34"/><path d="M18 34 H30"/><circle cx="24" cy="12" r="4"/></svg>
+        <h3>Post-Sale Support</h3>
+        <p>Twelve months of trusted mechanic and parts referrals after you buy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap contact-grid">
+    <div class="contact-info">
+      <p class="eyebrow">Visit The Floor</p>
+      <h2 style="margin-top:18px;">Come Meet<br>Your Next Ride</h2>
+      <p>Walk in, call ahead, or drop your details below and one of our advisors will reach you within the day.</p>
+      <div class="contact-lines">
+        <div><strong>Showroom</strong><span>Ashanti Region, Kumasi</span></div>
+        <div><strong>Phone</strong><span>+233 59 826 3383</span></div>
+        <div><strong>Hours</strong><span>Mon – Sat · 8:00am – 6:00pm</span></div>
+      </div>
+    </div>
+    <form class="royal-form" id="royalForm">
+      <div class="form-row two">
+        <div>
+          <label for="name">Full Name</label>
+          <input type="text" id="name" required placeholder="Your name">
+        </div>
+        <div>
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" required placeholder="059 826 3383">
+        </div>
+      </div>
+      <div class="form-row two">
+        <div>
+          <label for="interest">Interested In</label>
+          <select id="interest">
+            <option>SUV</option>
+            <option>Saloon</option>
+            <option>Executive</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div>
+          <label for="budget">Budget Range</label>
+          <select id="budget">
+            <option>Under GH₵150,000</option>
+            <option>GH₵150,000 – 300,000</option>
+            <option>GH₵300,000 – 500,000</option>
+            <option>GH₵500,000+</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="msg">Message</label>
+        <textarea id="msg" placeholder="Tell us what you're looking for..."></textarea>
+      </div>
+      <button type="submit" class="btn solid" style="align-self:flex-start;">Send Enquiry</button>
+      <p class="form-msg" id="formMsg">Thank you. An Odogwu advisor will reach you shortly.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="crest"><img src="images/auto-logo.jpeg" alt="Odogwu Automobile logo" class="logo-img"></span>
+        <div>
+          <span class="brand-text">ODOGWU AUTOMOBILE</span>
+          <p>The Big Man's Fleet. Trusted across the Ashanti Region.</p>
+        </div>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="#fleet">Fleet</a>
+          <a href="#about">Legacy</a>
+          <a href="#services">Services</a>
+        </div>
+        <div class="footer-col">
+          <h4>Reach Us</h4>
+          <span>+233 59 826 3383</span>
+          <span>Ashanti Region, Kumasi</span>
+        </div>
+      </div>
+    </div>
+    <div class="gold-rule" style="margin-bottom:24px;"></div>
+    <div class="footer-bottom">
+      <span>© 2026 Odogwu Automobile. All rights reserved.</span>
+      <span>Built with pride, driven with honour.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // header scroll state
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // mobile menu
+  const burger = document.getElementById('burgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const closeMenu = document.getElementById('closeMenu');
+  burger.addEventListener('click', () => mobileMenu.classList.add('open'));
+  closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // fleet filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.car-card');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      cards.forEach(card => {
+        card.style.display = (f === 'all' || card.dataset.cat === f) ? '' : 'none';
+      });
+    });
+  });
+
+  // form submit (front-end only)
+  const form = document.getElementById('royalForm');
+  const formMsg = document.getElementById('formMsg');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    formMsg.classList.add('show');
+    form.reset();
+    setTimeout(() => formMsg.classList.remove('show'), 5000);
+  });
+</script>
+
+</body>
+</html>
